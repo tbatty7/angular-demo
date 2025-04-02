@@ -10,7 +10,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 export class ChildComponent {
   @Output() addItemEvent = new EventEmitter<string>();
 
-  addItem() {
+  addItemFromChild() {
     this.addItemEvent.emit('🐢');
   }
 }
