@@ -6,6 +6,11 @@
       <p>Congratulations! Your app is running. 🎉</p>
       <app-child (addItemEvent)="addItem($event)" />
     <p>Here is the number {{items.length}}</p>
+    @for ( item of items; track item )
+    {
+      {{item}}
+    }
+
   </div>
 </main>
 
