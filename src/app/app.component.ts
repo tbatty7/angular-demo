@@ -12,9 +12,14 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  counter = 0;
   title = 'angular-demo';
   items: string[] = [];
-  addItem(item: string) {this.items.push(item);}
+
+  addItem(item: string) {
+    this.items.push(item);
+  }
+
 
   protected readonly of = of;
 }
