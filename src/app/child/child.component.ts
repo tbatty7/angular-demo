@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-child',
@@ -7,8 +7,15 @@ import {Component, EventEmitter, Output} from '@angular/core';
   templateUrl: './child.component.html',
   styleUrl: './child.component.css'
 })
-export class ChildComponent {
+export class ChildComponent implements OnInit {
   @Output() addItemEvent = new EventEmitter<string>();
+  @Input() emojiName: string = '';
+
+  ngOnInit() {
+    if (!this.emojiName) {
+      this.emojiName = 'Not passed';
+    }
+  }
 
 
   addItemFromChild() {
