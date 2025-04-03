@@ -3,11 +3,12 @@
     <input type="text" [(ngModel)]="title">
     <h1>Hello, {{ title }}</h1>
     <p>Congratulations! Your app is running. 🎉</p>
-    <app-child (addItemEvent)="addItem($event)" [(counter)]="counter"></app-child>
+    <app-child (addItemEvent)="addItem($event)"></app-child>
     <p>This many turtles: {{ items.length }}</p>
     @for (item of items; track item) {
       {{ item }}
     }
+    <app-custom [(counter)]="counter"></app-custom>
     <p>Counter: {{ counter }}</p>
   </div>
 </main>
