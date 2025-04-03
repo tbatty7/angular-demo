@@ -5,9 +5,7 @@ describe('CounterService', () => {
   let service: CounterService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [CounterService]
-    });
+    TestBed.configureTestingModule({});
     service = TestBed.inject(CounterService);
   });
 

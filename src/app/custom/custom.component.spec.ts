@@ -11,7 +11,7 @@ describe('CustomComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CustomComponent],
-      providers: [CounterService]
+      // providers: [CounterService] <-- is not necessary because in the service I set providedIn to 'root'
     }).compileComponents();
 
     fixture = TestBed.createComponent(CustomComponent);
