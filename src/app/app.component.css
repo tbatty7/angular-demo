@@ -11,6 +11,11 @@ h1 {
   "Segoe UI Symbol";
 }
 
+nav {
+  margin: 20px;
+
+}
+
 p {
   margin: 20px;
   color: gray;

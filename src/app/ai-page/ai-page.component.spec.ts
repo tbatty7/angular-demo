@@ -10,7 +10,7 @@ describe('AiPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AiPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AiPageComponent);
     component = fixture.componentInstance;
