@@ -36,12 +36,18 @@ describe('CounterService', () => {
     expect(service.currentValue).toBe(42);
   });
 
+  it('should emit default value through the observable', (done) => {
+    service.counter$.subscribe(value => {
+      expect(value).toBe(0);
+      done();
+    });
+  });
+
   it('should emit new values through the observable', (done) => {
+    service.setValue(7);
     service.counter$.subscribe(value => {
       expect(value).toBe(7);
       done();
     });
-
-    service.setValue(7);
   });
 });
