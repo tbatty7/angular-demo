@@ -1,4 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+// custom.component.ts
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+
+import {Subscription} from 'rxjs';
+import {CounterService} from "../services/counter/counter.service";
 
 @Component({
   selector: 'app-custom',
@@ -7,17 +11,37 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   templateUrl: './custom.component.html',
   styleUrl: './custom.component.css'
 })
-export class CustomComponent {
-  @Input() counter = 0;
-  @Output() counterChange = new EventEmitter<number>();
+export class CustomComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
 
-  increment() {
-    this.counter++;
-    this.counterChange.emit(this.counter);
+  @Input() set counter(value: number) {
+    this.counterService.setValue(value);
   }
 
-  decrement() {
-    this.counter--;
-    this.counterChange.emit(this.counter);
+  get counter(): number {
+    return this.counterService.currentValue;
+  }
+
+  @Output() counterChange = new EventEmitter<number>();
+
+  constructor(private counterService: CounterService) {
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.counterService.counter$.subscribe((value: number) => {
+      this.counterChange.emit(value);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  increment(): void {
+    this.counterService.increment();
+  }
+
+  decrement(): void {
+    this.counterService.decrement();
   }
 }
