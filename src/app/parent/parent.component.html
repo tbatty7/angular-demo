@@ -9,4 +9,19 @@
   }
   <app-custom [(counter)]="counter"></app-custom>
   <p>Counter: {{ counter }}</p>
+  <div style="margin-top: 20px; background-color: #eee; padding: 10px;">
+    <button (click)="callLambda()">Call Lambda</button>
+
+    <div *ngIf="loading">Loading...</div>
+
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+
+    <div *ngIf="lambdaResponse && !loading" class="response">
+      <h3>Lambda Response:</h3>
+      <pre>{{ lambdaResponse | json }}</pre>
+    </div>
+  </div>
+
 </div>
