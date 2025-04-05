@@ -1,7 +1,7 @@
 <div class="chat-container">
   <div class="messages">
     <div *ngFor="let msg of messages" [ngClass]="{'user': msg.sender === 'user', 'bot': msg.sender === 'bot'}">
-      {{ msg.text }}
+      {{ msg.message }}
     </div>
   </div>
 

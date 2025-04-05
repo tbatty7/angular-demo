@@ -17,23 +17,32 @@ import {NgClass, NgFor} from "@angular/common";
 })
 export class ChatComponent {
   userMessage: string = '';
-  messages: { text: string; sender: 'user' | 'bot' }[] = [];
+  messages: { message: string; sender: 'user' | 'bot' }[] = [];
 
   constructor(private http: HttpClient) {
   }
 
   sendMessage() {
     if (!this.userMessage.trim()) return;
+    const userInput = this.addUserMessageToChat();
+    this.sendMessageToAiChat(userInput);
+  }
 
-    // Add user message to chat
-    this.messages.push({text: this.userMessage, sender: 'user'});
-    const userInput = this.userMessage;
-    this.userMessage = ''; // Clear input box
-
-    // Call AWS Lambda (or any backend) to get AI response
-    this.http.post<any>('https://your-api-endpoint.com/chat', {message: userInput})
+  private sendMessageToAiChat(userInput: string) {
+    this.http.post<any>('https://4xi7skzcti.execute-api.us-east-2.amazonaws.com/default/rag-ai-bedrock-tim', {message: userInput})
       .subscribe(response => {
-        this.messages.push({text: response.reply, sender: 'bot'});
+        this.messages.push({message: response.reply, sender: 'bot'});
       });
+  }
+
+  private addUserMessageToChat() {
+    this.messages.push({message: this.userMessage, sender: 'user'});
+    const userInput = this.userMessage;
+    this.clearInput();
+    return userInput;
+  }
+
+  private clearInput() {
+    this.userMessage = '';
   }
 }
