@@ -3,7 +3,7 @@ import {ChildComponent} from "../child/child.component";
 import {FormsModule} from "@angular/forms";
 import {CustomComponent} from "../custom/custom.component";
 import {of} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
 
 @Component({
@@ -39,9 +39,17 @@ export class ParentComponent {
           this.lambdaResponse = response;
           this.loading = false;
         },
-        error: (error) => {
-          console.error('Error calling Lambda:', JSON.stringify(error, null, 2));
-          this.error = error.message || 'An error occurred while calling the Lambda function';
+        error: (error: HttpErrorResponse) => {
+          console.error('Error calling Lambda:', error);
+
+          // Check if it's a CORS error
+          if (error.status === 0 && error.error instanceof ProgressEvent) {
+            this.error = 'CORS Error: The request was blocked due to Cross-Origin Resource Sharing (CORS) policy. ' +
+              'The API server needs to allow requests from your domain.';
+          } else {
+            this.error = error.message || 'An unknown error occurred';
+          }
+
           this.loading = false;
         }
       });
