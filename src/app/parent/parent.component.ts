@@ -4,12 +4,12 @@ import {FormsModule} from "@angular/forms";
 import {CustomComponent} from "../custom/custom.component";
 import {of} from "rxjs";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
+import {JsonPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-parent',
   standalone: true,
-  imports: [ChildComponent, FormsModule, CustomComponent, NgIf, AsyncPipe, JsonPipe],
+  imports: [ChildComponent, FormsModule, CustomComponent, NgIf, JsonPipe],
   templateUrl: './parent.component.html',
   styleUrl: './parent.component.css'
 })
@@ -40,7 +40,7 @@ export class ParentComponent {
           this.loading = false;
         },
         error: (error: HttpErrorResponse) => {
-          console.error('Error calling Lambda:', error);
+          // console.error('Error calling Lambda:', error);
 
           // Check if it's a CORS error
           if (error.status === 0 && error.error instanceof ProgressEvent) {

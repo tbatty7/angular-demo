@@ -31,8 +31,15 @@ export class ChatComponent {
   private sendMessageToAiChat(userInput: string) {
     this.http.post<any>('https://4xi7skzcti.execute-api.us-east-2.amazonaws.com/default/rag-ai-bedrock-tim', {message: userInput})
       .subscribe(response => {
-        this.messages.push({message: response.reply, sender: 'bot'});
+        this.messages.push({
+          message: JSON.stringify(this.extractText(response)),
+          sender: 'bot'
+        });
       });
+  }
+
+  private extractText(response: any) {
+    return response.reply.output.message.content.map((line: any) => line.text).join('\n');
   }
 
   private addUserMessageToChat() {
