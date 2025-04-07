@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgFor} from "@angular/common";
 
@@ -29,7 +29,16 @@ export class ChatComponent {
   }
 
   private sendMessageToAiChat(userInput: string) {
-    this.http.post<any>('https://4xi7skzcti.execute-api.us-east-2.amazonaws.com/default/rag-ai-bedrock-tim', {message: userInput})
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+      'Content-Type': 'application/json'
+    });
+
+    this.http.post<any>(
+      'https://4xi7skzcti.execute-api.us-east-2.amazonaws.com/default/rag-ai-bedrock-tim',
+      {message: userInput},
+      {headers: headers}
+    )
       .subscribe(response => {
         this.messages.push({
           message: JSON.stringify(this.extractText(response)),
@@ -37,6 +46,7 @@ export class ChatComponent {
         });
       });
   }
+
 
   private extractText(response: any) {
     return response.reply.output.message.content.map((line: any) => line.text).join('\n');
