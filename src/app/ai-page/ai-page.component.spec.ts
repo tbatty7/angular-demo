@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {AiPageComponent} from './ai-page.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('AiPageComponent', () => {
   let component: AiPageComponent;
@@ -8,7 +9,7 @@ describe('AiPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AiPageComponent]
+      imports: [HttpClientTestingModule, AiPageComponent]
     })
       .compileComponents();
 

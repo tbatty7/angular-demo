@@ -1,14 +1,15 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ParentComponent} from './parent.component';
 
 describe('ParentComponent', () => {
   let component: ParentComponent;
   let fixture: ComponentFixture<ParentComponent>;
+  
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ParentComponent]
+      imports: [HttpClientTestingModule, ParentComponent]
     })
       .compileComponents();
 
